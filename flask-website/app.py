@@ -49,7 +49,7 @@ books = ['book1', 'book2']
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    print(tables_dict.keys())
+    # print(tables_dict.keys())
     return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys())
 
 # ------------------------------------------------------------
@@ -118,9 +118,22 @@ def index():
 @app.route('/add/<string:table_name>', methods=['GET', 'POST'])
 def add(table_name):
     if request.method == 'POST':
-        user_name = request.form['Users_user_id']
-        user_id = request.form['Users_user_name']
-        print(user_name, user_id)
+        field_lst = []
+        for attr in tables_dict[table_name]:
+            field_name = "{}_{}".format(table_name,attr)
+            field_value = request.form[field_name]
+            # print(field_value)
+            field_lst.append(field_value)
+        try:
+            cur = mysql.connection.cursor()
+            sql_query = 'insert into {} values{};'.format(table_name, tuple(field_lst))
+            print(sql_query)
+            cur.execute(sql_query)
+            mysql.connection.commit()
+            cur.close()
+            return redirect('/')
+        except:
+            return 'There was an issue adding the entry.'
     return redirect('/')
 
 
