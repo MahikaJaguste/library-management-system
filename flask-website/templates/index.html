@@ -2,27 +2,35 @@
 
 {% block head %}
 <title></title>
-<!--link rel = "stylesheet" href = "{{ url_for('static', filename='css/main.css') }}"-->
+<link rel = "stylesheet" href = "{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="container">
     
+<div class="container">
+
     <ul class="tab-nav">
-      <li><a href="#tab1" class="tab-link">First TAB</a></li>
-      <li><a href="#tab2" class="tab-link">Second TAB</a></li>
-      <li><a href="#tab3" class="tab-link">Third TAB</a></li>
+
+        {% for key, value in tables_dict.items() %}
+            <li><a href="#{{key}}" class="tab-link">{{key}}</a></li>
+        {% endfor %}
+    
     </ul>
-    <div id="tab1" class="tab-content">
-      <p>This is first contents.</p>
-    </div>
-    <div id="tab2" class="tab-content">
-      <p>This is second contents.</p>
-    </div>
-    <div id="tab3" class="tab-content">
-      <p>This is third contents.</p>
-    </div>
-  
-  </div>
+
+    {% for key, value in tables_dict.items() %}
+        <div id="{{key}}" class="tab-content">
+            <form action="/add/{{key}}" method="POST">
+                {% for attribute in value %}
+                    <label for="{{key}}_{{attribute}}">{{attribute}}</label>
+                    <input type="text" name="{{key}}_{{attribute}}" id="{{key}}_{{attribute}}">
+                    <br>
+                {% endfor %}
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    {% endfor %}
+ 
+</div>
+
 
 {% endblock %}

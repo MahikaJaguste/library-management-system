@@ -49,8 +49,8 @@ books = ['book1', 'book2']
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    print(tables_dict)
-    return render_template('index.html', tables_dict = tables_dict, books= books)
+    print(tables_dict.keys())
+    return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys())
 
 # ------------------------------------------------------------
 # @app.route('/', methods=['POST', 'GET'])
@@ -114,6 +114,15 @@ def index():
 #             return 'There was an issue updating the entry.' 
 #     else:
 #         return render_template('update.html', task=task)
+
+@app.route('/add/<string:table_name>', methods=['GET', 'POST'])
+def add(table_name):
+    if request.method == 'POST':
+        user_name = request.form['Users_user_id']
+        user_id = request.form['Users_user_name']
+        print(user_name, user_id)
+    return redirect('/')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
