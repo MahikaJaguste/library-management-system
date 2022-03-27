@@ -1,8 +1,64 @@
+/* reset */
 body {
     margin: 0;
-    font-family: sans-serif;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  /* contents styling */
+  header {
+    padding: 5px 10px;
+    background: darkgray;
+  }
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+  }
+  .container {
+    padding: 10px;
+  }
+.container.h2 {
+    font-size: 14px;
 }
-
-table, th, td {
-    border: 1px solid black;
-}
+  
+  /* tab styling */
+  .tab-content {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .tab-nav {
+    display: flex;
+  }
+  
+  .tab-link {
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    margin-right: -1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    font-size: 12px;
+  }
+  
+  .tab-content:not(:target) {
+    display: none;
+  }
+  
+  .tab-content:target {
+    display: block;
+  }

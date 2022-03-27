@@ -15,3 +15,10 @@
 
 </div>
 {% endblock %}
+
+<form action="/" method="POST">
+    {% for attribute in form_dict['Users'] %}
+        <input type="text" name="{{attribute}}" id="{{Users}}_{{attribute}}">
+    {% endfor %}
+    <input type="submit" value="Add">
+</form>

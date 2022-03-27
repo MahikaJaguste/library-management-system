@@ -1,33 +1,28 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Task Master</title>
+<title></title>
+<!--link rel = "stylesheet" href = "{{ url_for('static', filename='css/main.css') }}"-->
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <h1>Task Master</h1>
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Actions</th>
-        </tr>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ task[1] }}</td>
-            <td>
-                <a href="/delete/{{task[0]}}">Delete</a>
-                <br>
-                <a href="/update/{{task[0]}}">Update</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<div class="container">
+    
+    <ul class="tab-nav">
+      <li><a href="#tab1" class="tab-link">First TAB</a></li>
+      <li><a href="#tab2" class="tab-link">Second TAB</a></li>
+      <li><a href="#tab3" class="tab-link">Third TAB</a></li>
+    </ul>
+    <div id="tab1" class="tab-content">
+      <p>This is first contents.</p>
+    </div>
+    <div id="tab2" class="tab-content">
+      <p>This is second contents.</p>
+    </div>
+    <div id="tab3" class="tab-content">
+      <p>This is third contents.</p>
+    </div>
+  
+  </div>
 
-    <form action="/" method="POST">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task">
-    </form>
-
-</div>
 {% endblock %}
