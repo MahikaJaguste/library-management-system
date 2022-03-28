@@ -19,6 +19,35 @@
 
     {% for key, value in tables_dict.items() %}
         <div id="{{key}}" class="tab-content">
+
+            <table>
+                <thead>
+                    <tr>
+                        {% for column_name in value %}
+                            <th>{{column_name}}</th>
+                        {% endfor %}
+                    </tr>
+                <thead>
+
+                <tbody>
+                    {% for table_name, table_content in table_data.items() %}
+                        {% if table_name == key %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for row_value in table_row %}
+                                        <td>{{row_value}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                            
+                </tbody>
+            </table>
+            
+
+                    
+            
             <form action="/add/{{key}}" method="POST">
                 {% for attribute in value %}
                     <label for="{{key}}_{{attribute}}">{{attribute}}</label>

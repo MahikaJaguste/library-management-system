@@ -16,3 +16,15 @@
 </div>
 {% endblock %}
 
+<tr>
+    {% for index in range(len(value)) %}
+
+        <!--label for="{{key}}_{{attribute}}">{{attribute}}</label-->
+        <!--input type="text" name="{{key}}_{{attribute}}" id="{{key}}_{{attribute}}"-->
+        
+        <!--td data-pk="{{task[0]}}">{{task[0]}}</td-->
+        <td data-name="task" class="task" data-type="text" data-pk="{{task[0]}}">{{task[index]}}</td>
+
+        <br>
+    {% endfor %}    
+</tr>

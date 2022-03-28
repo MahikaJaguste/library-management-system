@@ -49,6 +49,20 @@ books = ['book1', 'book2']
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    try:
+        table_data = {}
+        cur = mysql.connection.cursor()
+        for table_name in tables_dict.keys():
+            sql_query = "select * from {}".format(table_name)
+            resultValue = cur.execute(sql_query)
+            current_table_data = []
+            if resultValue > 0:
+                current_table_data = cur.fetchall()
+            table_data[table_name] = list(current_table_data)
+
+        return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data)
+    except:
+        return 'There was an issue fetching the entry AAAAAA'
     # print(tables_dict.keys())
     return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys())
 
