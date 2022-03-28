@@ -19,7 +19,7 @@ tables_dict = {
     'Users_Phone' : ['user_id', 'phone_number'],
     'Student' : ['user_ID', 'programme'],
     'Faculty' : ['user_ID', 'dept_name', 'salary'],
-    'Staff' : ['user_ID', 'job_profile', 'salary'],
+    'Staff' : ['user_ID', 'job_profile'],
     'Library_Staff' : ['user_ID', 'lib_dept'],
     'Other_Staff' : ['user_ID', 'working_hours'],
     'Library_Systems' : ['system_ID', 'system_specs'],
@@ -105,29 +105,61 @@ def index():
 #     except:
 #         return 'There was an issue deleting the entry.'  
 
-# @app.route('/update/<int:id>', methods=['GET', 'POST'])
-# def update(id):
-#     try:
-#         cur = mysql.connection.cursor()
-#         sql_query = "select * from todo where id = {0}".format(id)
-#         cur.execute(sql_query)
-#         task = cur.fetchone()
-#     except:
-#         return 'There was an issue fetching the entry'
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    # print("start")
+    row = request.form['pk']
+    name = ""
+    id = ""
+    col = ""
+    idx = 0
+    print(row)
+    for i in row:
+        if idx==0:
+            if i != ",":
+                name += i
+            else:
+                idx = 1
+                continue
+        if idx==1:
+            if i != ",":
+                id += i
+            else:
+                idx = 2
+                continue
+        if idx==2:
+            if i != ",":
+                col += i       
 
-#     if request.method == 'POST':
-#         task_content = request.form['update_content']
-#         try:
-#             cur = mysql.connection.cursor()
-#             sql_query = 'update todo set content = "{1}" where id = {0}'.format(id, task_content)
-#             cur.execute(sql_query)
-#             mysql.connection.commit()
-#             cur.close()
-#             return redirect('/')
-#         except:
-#             return 'There was an issue updating the entry.' 
-#     else:
-#         return render_template('update.html', task=task)
+    value = request.form['value']
+    print(value)
+    print(name)
+    print(id)
+    print(col)
+    print(tables_dict[name][int(col)])
+    # print(name)
+    # try:
+    #     cur = mysql.connection.cursor()
+    #     sql_query = "select * from {1} where id = {0}".format(id, name)
+    #     cur.execute(sql_query)
+    #     task = cur.fetchone()
+    # except:
+    #     return 'There was an issue fetching the entry'
+
+    # if request.method == 'POST':
+        # task_content = request.form['update_content']
+        # print("hello")
+        # print(value)
+    try:
+        cur = mysql.connection.cursor()
+        sql_query = 'update {2} set {3} = "{1}" where {4} = {0};'.format(id, value, name, tables_dict[name][int(col)], tables_dict[name][0])
+        print(sql_query)
+        cur.execute(sql_query)
+        mysql.connection.commit()
+        cur.close()
+        return redirect('/')
+    except:
+        return 'There was an issue updating the entry.' 
 
 @app.route('/add/<string:table_name>', methods=['GET', 'POST'])
 def add(table_name):

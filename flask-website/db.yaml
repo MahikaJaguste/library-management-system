@@ -1,4 +1,4 @@
 mysql_host: 'localhost'
 mysql_user: 'root'
-mysql_password: 'root1234'
-mysql_db: 'a6'
+mysql_password: 'sqlpower@123'
+mysql_db: 'dummy2'

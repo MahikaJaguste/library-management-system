@@ -20,11 +20,11 @@
     {% for key, value in tables_dict.items() %}
         <div id="{{key}}" class="tab-content">
 
-            <table>
+            <table class = "interactive_table" style="width: 50vw;text-align: center;">
                 <thead>
                     <tr>
                         {% for column_name in value %}
-                            <th>{{column_name}}</th>
+                            <th style="text-align: center;">{{column_name}}</th>
                         {% endfor %}
                     </tr>
                 <thead>
@@ -34,8 +34,8 @@
                         {% if table_name == key %}
                             {% for table_row in table_content %}
                                 <tr>
-                                    {% for row_value in table_row %}
-                                        <td>{{row_value}}</td>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="white-space:nowrap;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
                                     {% endfor %}
                                 </tr>
                             {% endfor %}
@@ -61,5 +61,49 @@
  
 </div>
 
+
+<script>
+
+    // $.fn.editable.defaults.mode = 'inline';
+    
+    $(document).ready( function () {
+
+        $('.interactive_table').editable({
+            container:'body',
+            selector:'td.update',
+            url:'/update',
+            title:'update',
+            type:'POST',
+            validate:function(value){
+                if($.trim(value) == '')
+                {
+                    return 'This field is required';
+                }
+            }
+        });
+
+        var dataTable = $('.interactive_table').DataTable({
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "iDisplayLengtg": 3,
+        });
+    
+        
+    
+    } );
+
+    // document.querySelector('.editor').addEventListener('keypress', function (e) {
+    //     var key = e.which || e.keyCode;
+    //     if (key === 13) { // 13 is enter
+    //         var text = document.getElementById(".editor").value;
+    //         if (text.includes("w")) {
+    //             alert("Omg, the string contains a W, try again");
+    //         } else {
+    //             document.getElementById(".editor").blur();
+    //         }
+    //     }
+    // });
+
+    
+    </script>
 
 {% endblock %}

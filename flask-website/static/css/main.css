@@ -35,7 +35,7 @@ body {
     width: 500px;
     height: 300px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc !important;
   }
   
   .tab-nav {
