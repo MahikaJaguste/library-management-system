@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_mysqldb import MySQL
 import yaml
+import sys
 
 app = Flask(__name__)
 
@@ -52,21 +53,24 @@ def delete(id):
     except:
         return 'There was an issue deleting the entry.'  
 
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
-def update(id):
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    pk = request.form['pk']
+    print(pk, file=sys.stdout)
     try:
         cur = mysql.connection.cursor()
-        sql_query = "select * from todo where id = {0}".format(id)
+        sql_query = "select * from todo where id = {0}".format(pk)
         cur.execute(sql_query)
         task = cur.fetchone()
     except:
         return 'There was an issue fetching the entry'
 
     if request.method == 'POST':
-        task_content = request.form['update_content']
+        # task_content = request.form['update_content']
+        value = request.form['value']
         try:
             cur = mysql.connection.cursor()
-            sql_query = 'update todo set content = "{1}" where id = {0}'.format(id, task_content)
+            sql_query = 'update todo set content = "{1}" where id = {0}'.format(pk, value)
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
