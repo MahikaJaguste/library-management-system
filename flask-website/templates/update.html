@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
 
 {% block head %}
 <title>Task Master</title>
@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="content">
-    <h1>UPpdate Task</h1>
+    <h1>Update Task</h1>
     
     <form action="/update/{{task[0]}}" method="POST">
         <input type="text" name="update_content" id="content" value="{{task[1]}}">
@@ -15,4 +15,13 @@
 
 </div>
 {% endblock %}
+
+{% comment %} <form action="/add/{{key}}" method="POST">
+    {% for attribute in value %}
+        <label for="{{key}}_{{attribute}}">{{attribute}}</label>
+        <input type="text" name="{{key}}_{{attribute}}" id="{{key}}_{{attribute}}">
+        <br>
+    {% endfor %}
+    <input type="submit" value="Add">
+</form> {% endcomment %}
 

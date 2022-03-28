@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_mysqldb import MySQL
 import yaml
+import sys
 
 app = Flask(__name__)
 
@@ -90,6 +91,17 @@ def index():
 #             return redirect('/')
 #     except:
 #         return 'There was an issue deleting the entry.'  
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    pk = request.form['pk']
+    print(pk, file=sys.stdout)
+    try:
+        cur = mysql.connection.cursor()
+        sql_query = "select * from todo where id = {0}".format(pk)
+        cur.execute(sql_query)
+        task = cur.fetchone()
+    except:
+        return 'There was an issue fetching the entry'
 
 # @app.route('/update/<int:id>', methods=['GET', 'POST'])
 # def update(id):
