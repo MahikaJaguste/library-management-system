@@ -135,6 +135,7 @@ def add(table_name):
         except:
             return 'There was an issue adding the entry.'
     return redirect('/')
+    # trying to commit
 
 
 if __name__ == '__main__':
