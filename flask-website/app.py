@@ -61,8 +61,8 @@ def index():
             table_data[table_name] = list(current_table_data)
 
         return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data)
-    except:
-        return 'There was an issue fetching the entry AAAAAA'
+    except Exception as e:
+        return 'There was an issue fetching the entries: ' + str(e)
     # print(tables_dict.keys())
     return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys())
 
@@ -145,11 +145,62 @@ def add(table_name):
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
-            return redirect('/')
+            return redirect('/#'+str(table_name))
         except:
             return 'There was an issue adding the entry.'
-    return redirect('/')
+    return redirect('/#' + str(table_name))
 
+@app.route('/delete/<string:table_name>', methods=['GET', 'POST'])
+def delete(table_name):
+    if request.method == 'GET':
+        args = request.args
+        field_lst = []
+        for attr in tables_dict[table_name]:
+            field_name = "{}_{}".format(table_name,attr)
+            field_value = args[field_name]
+            # print(field_value)
+            field_lst.append([attr, field_value])
+        try:
+            cur = mysql.connection.cursor()
+            sql_query = 'delete from {} where '.format(table_name)
+            for i in range(len(field_lst) - 1):
+                sql_query = sql_query + field_lst[i][0] + '=' + '"' + field_lst[i][1] + '"' + ' and '
+            sql_query = sql_query + field_lst[-1][0] + '=' + '"' + field_lst[-1][1] + '"'
+            cur.execute(sql_query)
+            mysql.connection.commit()
+            cur.close()
+            return redirect('/#'+str(table_name))
+        except Exception as e:
+            return 'There was an issue adding the entry:' + str(e)
+    return redirect('/#' + str(table_name))
+
+@app.route('/update/<string:table_name>', methods=['GET', 'POST'])
+def update(table_name):
+    if request.method == 'GET':
+        args = request.args
+        field_lst = []
+        update_field = []
+        for attr in tables_dict[table_name]:
+            field_name = "{}_{}".format(table_name,attr)
+            if ("New_" + field_name in args.keys()):
+                update_field = [attr, args["New_" + field_name]]
+            field_value = args[field_name]
+            # print(field_value)
+            field_lst.append([attr, field_value])
+        try:
+            cur = mysql.connection.cursor()
+            sql_query = 'update {} set {}={} where '.format(table_name, update_field[0], update_field[1])
+            for i in range(len(field_lst) - 1):
+                sql_query = sql_query + field_lst[i][0] + '=' + '"' + field_lst[i][1] + '"' + ' and '
+            sql_query = sql_query + field_lst[-1][0] + '=' + '"' + field_lst[-1][1] + '"'
+            print(sql_query)
+            cur.execute(sql_query)
+            mysql.connection.commit()
+            cur.close()
+            return redirect('/#'+str(table_name))
+        except Exception as e:
+            return 'There was an issue adding the entry:' + str(e)
+    return redirect('/#' + str(table_name))
 
 if __name__ == '__main__':
     app.run(debug=True)

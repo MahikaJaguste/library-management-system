@@ -34,9 +34,20 @@
                         {% if table_name == key %}
                             {% for table_row in table_content %}
                                 <tr>
-                                    {% for row_value in table_row %}
-                                        <td>{{row_value}}</td>
+                                    {% for row in range(table_row | length) %}
+                                        {% set update_end_point = {'e':''} %}
+                                        {% for index in range(value | length) %}
+                                        {% if update_end_point.update({'e':update_end_point.e ~ table_name ~ "_" ~ value[index] ~ "=" ~ table_row[index] ~ "&"}) %} {% endif %}
+                                        {% endfor %}
+                                        {% if update_end_point.update({'e':update_end_point.e ~ "New_" ~ table_name ~ "_" ~ value[row] ~ "="}) %} {% endif %}
+                                        <td contenteditable="true" onkeypress="preventNewLine(event, this)" name="/update/{{ table_name }}?{{ update_end_point['e'] }}" onblur="updateValue(this)">{{ table_row[row] }}</td>
+                                        <!-- <td><a href="/update/{{ table_name }}?{{ update_end_point }}">Update</a></td>  -->
                                     {% endfor %}
+                                    {% set delete_end_point = {'e':''} %}
+                                    {% for index in range(value | length) %}
+                                    {% if delete_end_point.update({'e':delete_end_point.e ~ table_name ~ "_" ~ value[index] ~ "=" ~ table_row[index] ~ "&"}) %} {% endif %}
+                                    {% endfor %}
+                                    <td><a href="/delete/{{ table_name }}?{{ delete_end_point['e'] }}">Delete</a></td>
                                 </tr>
                             {% endfor %}
                         {% endif %}
@@ -44,9 +55,6 @@
                             
                 </tbody>
             </table>
-            
-
-                    
             
             <form action="/add/{{key}}" method="POST">
                 {% for attribute in value %}
@@ -61,5 +69,23 @@
  
 </div>
 
+<script>
+
+    function preventNewLine (event, element) {
+        if (event.which === 13) {
+            event.preventDefault();
+            element.blur();
+    }
+
+    }
+    function updateValue (event) {
+        let update_end_point = event.getAttribute("name");
+        let new_value = event.innerHTML;
+        update_end_point = update_end_point + '"' + new_value.toString() + '"';
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", update_end_point);
+        xhr.send();
+    }
+</script>
 
 {% endblock %}
