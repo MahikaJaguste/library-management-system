@@ -154,11 +154,18 @@ def update():
         cur = mysql.connection.cursor()
         sql_query = 'update {2} set {3} = "{1}" where {4} = {0};'.format(id, value, name, tables_dict[name][int(col)], tables_dict[name][0])
         print(sql_query)
-        cur.execute(sql_query)
-        mysql.connection.commit()
-        cur.close()
+        try:
+            cur.execute(sql_query)
+            mysql.connection.commit()
+            cur.close()
+        except:
+            cur.close()
+            print("Error now redirect")
+            return redirect('/#Users')
+        
         return redirect('/')
     except:
+        print("ERROR")
         return 'There was an issue updating the entry.' 
 
 @app.route('/add/<string:table_name>', methods=['GET', 'POST'])
