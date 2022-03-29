@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, render_template_string, request, redirect
 from flask_mysqldb import MySQL
 import yaml
 
@@ -158,15 +158,39 @@ def update():
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
+            return redirect('/')
         except:
-            cur.close()
             print("Error now redirect")
-            return redirect('/#Users')
+            return redirect('/')
         
         return redirect('/')
     except:
         print("ERROR")
         return 'There was an issue updating the entry.' 
+
+@app.route('/delete/<string:table_name>', methods=['GET', 'POST'])
+def delete(table_name):
+    if request.method == 'GET':
+        args = request.args
+        field_lst = []
+        for attr in tables_dict[table_name]:
+            field_name = "{}_{}".format(table_name,attr)
+            field_value = args[field_name]
+            # print(field_value)
+            field_lst.append([attr, field_value])
+        try:
+            cur = mysql.connection.cursor()
+            sql_query = 'delete from {} where '.format(table_name)
+            for i in range(len(field_lst) - 1):
+                sql_query = sql_query + field_lst[i][0] + '=' + '"' + field_lst[i][1] + '"' + ' and '
+            sql_query = sql_query + field_lst[-1][0] + '=' + '"' + field_lst[-1][1] + '"'
+            cur.execute(sql_query)
+            mysql.connection.commit()
+            cur.close()
+            return redirect('/#'+str(table_name))
+        except Exception as e:
+            return 'There was an issue adding the entry:' + str(e)
+    return redirect('/#' + str(table_name))
 
 @app.route('/add/<string:table_name>', methods=['GET', 'POST'])
 def add(table_name):
