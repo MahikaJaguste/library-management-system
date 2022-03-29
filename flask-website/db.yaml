@@ -1,9 +1,4 @@
 mysql_host: 'localhost'
 mysql_user: 'root'
-<<<<<<< Updated upstream
 mysql_password: 'Nipunsql@0307'
 mysql_db: 'assignment_6'
-=======
-mysql_password: 'root'
-mysql_db: 'assignment6'
->>>>>>> Stashed changes
