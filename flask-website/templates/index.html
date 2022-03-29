@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    
+<div class = "heading_">Library Management System</div>
 <div class="container">
 
     <ul class="tab-nav">
@@ -16,7 +16,7 @@
         {% endfor %}
     
     </ul>
-
+    <br>
     {% for key, value in tables_dict.items() %}
         <div id="{{key}}" class="tab-content">
 

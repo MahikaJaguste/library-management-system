@@ -1,4 +1,8 @@
 /* reset */
+*{
+  font-family:Montserrat;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -38,14 +42,26 @@ body {
     border: 0px solid #ccc !important;
   }
   
+  .heading_ {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    position: center;
+    font-size: 2em;
+    background-color: #9381FF;
+    color: #F8F7FF;
+
+  }
+
   .tab-nav {
     display: flex;
+    flex-wrap: wrap;
   }
   
   .tab-link {
     display: flex;
     align-items: center;
-    width: 100px;
+    /* width: 100px; */
     height: 30px;
     margin-right: -1px;
     padding-right: 5px;
