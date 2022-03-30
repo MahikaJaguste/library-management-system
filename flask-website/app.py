@@ -61,8 +61,8 @@ def index():
             table_data[table_name] = list(current_table_data)
 
         return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data)
-    except:
-        return 'There was an issue fetching the entry AAAAAA'
+    except Exception as e:
+        return 'There was an issue fetching the entry: ' + str(e)
     # print(tables_dict.keys())
     return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys())
 
@@ -113,7 +113,7 @@ def update():
     id = ""
     col = ""
     idx = 0
-    print(row)
+    # print(row)
     for i in row:
         if idx==0:
             if i != ",":
@@ -132,11 +132,11 @@ def update():
                 col += i       
 
     value = request.form['value']
-    print(value)
-    print(name)
-    print(id)
-    print(col)
-    print(tables_dict[name][int(col)])
+    # print(value)
+    # print(name)
+    # print(id)
+    # print(col)
+    # print(tables_dict[name][int(col)])
     # print(name)
     # try:
     #     cur = mysql.connection.cursor()
@@ -153,20 +153,20 @@ def update():
     try:
         cur = mysql.connection.cursor()
         sql_query = 'update {2} set {3} = "{1}" where {4} = {0};'.format(id, value, name, tables_dict[name][int(col)], tables_dict[name][0])
-        print(sql_query)
+        # print(sql_query)
         try:
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
-            return redirect('/')
+            return redirect('/#' + str(name))
         except:
-            print("Error now redirect")
-            return redirect('/')
+            # print("Error now redirect")
+            return redirect('/#' + str(name))
         
         return redirect('/')
-    except:
-        print("ERROR")
-        return 'There was an issue updating the entry.' 
+    except Exception as e:
+        # print("ERROR")
+        return 'There was an issue updating the entry: ' + str(e) 
 
 @app.route('/delete/<string:table_name>', methods=['GET', 'POST'])
 def delete(table_name):
@@ -187,7 +187,7 @@ def delete(table_name):
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
-            return redirect('/#'+str(table_name))
+            return redirect('/#' + str(table_name))
         except Exception as e:
             return 'There was an issue adding the entry:' + str(e)
     return redirect('/#' + str(table_name))
@@ -208,10 +208,10 @@ def add(table_name):
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
-            return redirect('/')
-        except:
-            return 'There was an issue adding the entry.'
-    return redirect('/')
+            return redirect('/#' + str(table_name))
+        except Exception as e:
+            return 'There was an issue adding the entry: ' + str(e)
+    return redirect('/#' + str(table_name))
 
 
 if __name__ == '__main__':
