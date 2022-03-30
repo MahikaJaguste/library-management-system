@@ -13,7 +13,11 @@ pip3 install flask-mysqldb
 pip3 install pyyaml
 ```
 
-MySQL Server (Workbench) should also be installed.
+MySQL Server (Workbench) should also be installed. Dump the library schema with dummy values using the following command in mysql:
+
+```
+source dumpfile.sql;
+```
 
 One must configure the db.yaml file to connect to the MySQL Server.
 
