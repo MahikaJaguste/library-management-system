@@ -49,4 +49,4 @@ Snapshots of the functioning of the website
 
 The functioning of the INSERT, DELETE and UPDATE queries has been shown through the following snapshots of the website. We have also shown some cases where our web app gives errors like foreign key constraints are violated, duplicate primary keys, etc.
 
-![alt text](https://github.com/MahikaJaguste/library-management-system//blob/new-parass/image.jpg?raw=true)
+![alt text](Snapshots/intro_1.png?raw=true)
