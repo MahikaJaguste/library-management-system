@@ -10,18 +10,21 @@
             elements[0].classList.remove('selected-tab');
         }
         var ele = document.getElementById(id);
-        console.log(id);
         ele.classList.add("selected-tab");   
     }
     function getHash(){
         var hash = window.location.hash.substr(1);
-        var key = hash+1;
-        console.log(key);
-        setActive(key);
+        setActiveFirst(hash+'1');
+    }
+
+    function setActiveFirst(id){
+        var ele = document.getElementById(id);
+        console.log(id);
+        ele.classList.add("selected-tab"); 
     }
 
     window.onload = function(){
-        setTimeout(getHash, 10);
+        setTimeout(getHash, 1);
     }
 
 </script>
