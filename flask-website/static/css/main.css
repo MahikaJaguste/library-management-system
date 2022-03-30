@@ -331,18 +331,20 @@ body {
   }
 
   .footer{
-    position: fixed;
+    position: relative;
     background-color: #d1c6bd;
     height: 8em;
     bottom: 0;
     width: 100%;
     opacity: 80%;
     vertical-align: middle;
+    /* height: max-content; */
   }
 
   #contact{
     width: 50% ;
     color: #fafafa;
+    height: fit-content;
     padding-left: 7vw;
     margin-top: 25px;
     margin-bottom: auto;

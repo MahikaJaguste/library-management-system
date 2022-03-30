@@ -208,10 +208,10 @@ def add(table_name):
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
-            return redirect('/')
+            return redirect('/#'+table_name)
         except:
             return 'There was an issue adding the entry.'
-    return redirect('/')
+    return redirect('/#'+table_name)
 
 
 if __name__ == '__main__':
