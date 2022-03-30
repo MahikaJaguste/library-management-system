@@ -1,4 +1,178 @@
-/* reset */
+/* 
+*{
+  font-family:Montserrat;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  header {
+    padding: 5px 10px;
+    background: darkgray;
+  }
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+  }
+  .container {
+    padding: 10px;
+  }
+.container.h2 {
+    font-size: 14px;
+}
+  
+  .tab-content {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    padding: 10px;
+    border: 0px solid #ccc !important;
+  }
+  
+  .heading_ {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    position: center;
+    font-size: 2em;
+    background-color: #9381FF;
+    color: #F8F7FF;
+    font-weight: bold;
+
+  }
+
+  .tab-nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .tab-link {
+    background-color: #f58d59;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    color: #F8F7FF;
+    border-radius: 11px;
+    margin-right: -1px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    font-size: 1em;
+    font-family: Roboto;
+
+  }
+  .tab-link:hover{
+    background-color: #8372e6;
+    font-weight: bold;
+    color: #F8F7FF;
+
+  }
+
+  .tab-link:active{
+    background-color: #8372e6;
+  }
+  
+  .tab-content{
+    font-family: Roboto;
+  }
+
+  .tab-content:not(:target) {
+    display: none;
+  }
+  
+  .tab-content:target {
+    display: block;
+  }
+
+  .interactive-table{
+    font-family: Roboto;
+  }
+
+  .input-form{
+    width: fit-content;
+    padding: 0em;
+    background-color: #ccc4f7;
+    border-radius: 20px;
+  }
+
+  #input-fields {
+    padding: 1em;
+    color: #353538;
+    font-size: 0.9em;
+    display: table;
+  }
+
+  .table-row{
+    display: table-row;
+  }
+
+  label { display: table-cell; }
+  input { display: table-cell; }
+
+  .footer{
+    position: fixed;
+    background-color: #c2c2c4;
+    height: 8vw;
+    bottom: 0;
+    width: 100%;
+    opacity: 80%;
+    vertical-align: middle;
+  }
+
+  #contact{
+    width: 50% ;
+    color: #F8F7FF;
+    padding-left: 7vw;
+    margin-top: 25px;
+    margin-bottom: auto;
+    font-weight: bold;
+    font-size: 150%;
+    vertical-align: middle;
+    float: left;
+
+  }
+  #contact .p{
+    font-weight: 0;
+    color: #000;
+  }
+
+  .team-details{
+    padding-top: 8px;
+    width: 25%;
+    float: left;
+    
+  }
+
+  .team-name{
+    font-weight: bold;
+    margin-bottom: 0px;
+    font-family: roboto;
+    color : #353538;
+    text-align: center;
+  }
+
+  .members{
+    text-align: center;
+    font-family: lato;
+    font-size: small;
+    color: #565658;
+  } */
+
+/* ===================================== */
+
 *{
   font-family:Montserrat;
 }
@@ -35,8 +209,9 @@ body {
   
   /* tab styling */
   .tab-content {
-    position: absolute;
-    width: 500px;
+    /* margin-left: 26vw; */
+    /* position: center; */
+    width: auto;
     height: 300px;
     padding: 10px;
     border: 0px solid #ccc !important;
@@ -48,8 +223,9 @@ body {
     text-align: center;
     position: center;
     font-size: 2em;
-    background-color: #9381FF;
+    background-color: #246A73;
     color: #F8F7FF;
+    font-weight: bold;
 
   }
 
@@ -59,22 +235,148 @@ body {
   }
   
   .tab-link {
+    background-color: #F3DFC1;
     display: flex;
     align-items: center;
     /* width: 100px; */
     height: 30px;
-    margin-right: -1px;
-    padding-right: 5px;
-    padding-left: 5px;
-    border: 1px solid #ccc;
+    color: #7d8283;
+    border-radius: 11px;
+    /* margin-right: -1px; */
+    margin: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    /* border: 1px solid #ccc; */
     border-bottom: 0;
-    font-size: 12px;
+    font-size: 1em;
+    font-family: Roboto;
+    /* text-decoration: none; */
   }
-  
+
+  .tab-link.selected-tab:hover {
+    background-color: #5c4f80;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .tab-link:hover{
+    background-color: #DDBEA8;
+    font-weight: bold;
+    color: #ffffff;
+
+  }
+
+  .selected-tab {
+    background-color: #5c4f80;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+
+  .tab-content{
+    font-family: Roboto;
+  }
+
   .tab-content:not(:target) {
     display: none;
   }
   
   .tab-content:target {
     display: block;
+  }
+
+  .interactive-table{
+    font-family: Roboto;
+    text-align: center;
+  }
+
+  .input-form{
+    width: fit-content;
+    padding: 0em;
+    background-color: #99cfcd;
+    /* opacity: 20%; */
+    border-radius: 20px;
+  }
+
+  #input-fields {
+    padding: 1em;
+    color: #353538;
+    font-size: 0.9em;
+    display: table;
+    font-weight: 100;
+  }
+
+  .table-row{
+    display: table-row;
+  }
+
+  .delete-entry{
+    padding: 2px;
+  }
+  
+
+  .delete-entry:hover{
+    color: white;
+    text-decoration: none;
+    background-color: rgb(228, 109, 109);
+    border-radius: 2px;
+  }
+
+  label {
+    display: table-cell;
+  }
+
+  input {
+    display: table-cell;
+  }
+
+  .footer{
+    position: fixed;
+    background-color: #d1c6bd;
+    height: 8em;
+    bottom: 0;
+    width: 100%;
+    opacity: 80%;
+    vertical-align: middle;
+  }
+
+  #contact{
+    width: 50% ;
+    color: #fafafa;
+    padding-left: 7vw;
+    margin-top: 25px;
+    margin-bottom: auto;
+    font-weight: bold;
+    font-size: 150%;
+    vertical-align: middle;
+    float: left;
+
+  }
+  #contact .p{
+    font-weight: 0;
+    color: #F3DFC1;
+  }
+
+  .team-details{
+    padding-top: 8px;
+    width: 25%;
+    float: left;
+    /* text-align: right; */
+    
+  }
+
+  .team-name{
+    font-weight: bold;
+    margin-bottom: 0px;
+    font-family: roboto;
+    color : #353538;
+    text-align: center;
+  }
+
+  .members{
+    /* margin-left: 40%; */
+    text-align: center;
+    font-family: lato;
+    font-size: small;
+    color: #565658;
   }
