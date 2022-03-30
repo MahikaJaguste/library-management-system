@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title></title>
+<link rel = "stylesheet" href = "{{ url_for('static', filename='css/main.css') }}">
+<script>
+    function setActive(id){
+        var elements = document.getElementsByClassName('tab-link selected-tab');
+        while(elements.length > 0){
+            elements[0].classList.remove('selected-tab');
+        }
+        var ele = document.getElementById(id);
+        ele.classList.add("selected-tab");   
+    }
+    function getHash(){
+        var hash = window.location.hash.substr(1);
+        setActiveFirst(hash+'1');
+    }
+
+    function setActiveFirst(id){
+        var ele = document.getElementById(id);
+        console.log(id);
+        ele.classList.add("selected-tab"); 
+    }
+
+    window.onload = function(){
+        setTimeout(getHash, 1);
+    }
+
+</script>
+{% endblock %}
+
+{% block body %}
+<!-- getHash() -->
+<div class = "heading_">Library Management System</div>
+<div class="container" >
+
+    <ul class="tab-nav">
+
+        {% for key, value in tables_dict.items() %}
+            <li><a href="#{{key}}" class="tab-link" style="text-decoration: none;" id = "{{key}}1" onclick="setActive('{{key}}1')">{{key}}</a></li>
+        {% endfor %}
+    
+    </ul>
+    <br>
+    {% for key, value in tables_dict.items() %}
+        <div id="{{key}}" class="tab-content" >
+
+            <table class = "interactive_table" style="text-align: center; margin-left:auto; margin-right: auto;">
+                <thead>
+                    <tr>
+                        {% for column_name in value %}
+                            <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; color: #368F8B">{{column_name}}</th>
+                        {% endfor %}
+                    </tr>
+                <thead>
+
+                <tbody>
+                    {% for table_name, table_content in table_data.items() %}
+                        {% if table_name == key %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
+                                    {% endfor %}
+                                    {% set delete_end_point = {'e':''} %}
+                                    {% for index in range(value | length) %}
+                                    {% if delete_end_point.update({'e':delete_end_point.e ~ table_name ~ "_" ~ value[index] ~ "=" ~ table_row[index] ~ "&"}) %} {% endif %}
+                                    {% endfor %}
+                                    <td style = "padding: 5px;"><a class = "delete-entry" href="/delete/{{ table_name }}?{{ delete_end_point['e'] }}">X</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                            
+                </tbody>
+            </table>
+            
+
+                    
+            <br>
+            <div class = "input-form" style="margin-left: auto; margin-right: auto;">
+                <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">Input Values to be Inserted</p></div>
+                <hr style="margin: 0px;">      
+                <form action="/add/{{key}}" method="POST" id = "input-fields">
+                    {% for attribute in value %}
+                    <div class = "table-row" >
+                        <label for="{{key}}_{{attribute}}" style="font-weight:460;">{{attribute}}</label> &nbsp;&nbsp;
+                        <input type="text" name="{{key}}_{{attribute}}" id="{{key}}_{{attribute}}" style="font-weight:460;">
+                        <br>
+
+                    </div>
+                    {% endfor %}
+                    <input type="submit" value="Add" style="color: black;">
+                </form>
+            </div>
+        </div>
+        <br>
+        
+    {% endfor %}
+ 
+</div>
+<div class = "footer">
+    <div id = "contact">
+        &#169; Library Management System <br> 
+        <p style="color: rgb(255, 255, 255); font-weight: 100; font-size: 84%;">CS432 - Database Management System</p>
+    </div>
+    <div id = "G1" class = "team-details">
+        <p class = "team-name">TEAM G1</p>
+        <p class = "members">
+            Chetan Kishore<br>
+            Gaurav Viramgami<br>
+            Manas Mulpuri<br>
+            Shrreya Singh
+        </p>
+    </div>
+    <div id = "G2" class = "team-details">
+        <p class = "team-name">TEAM G2</p>
+        <p class = "members">
+            Mahika Jaguste<br>
+            Nipun Mahajan<br>
+            Paras Gupta<br>
+            Shubh Lavti
+        </p>
+    </div>
+</div>
+
+
+<script>
+
+    // $.fn.editable.defaults.mode = 'inline';
+    
+    $(document).ready( function () {
+
+        $('.interactive_table').editable({
+            container:'body',
+            selector:'td.update',
+            url:'/update',
+            title:'update',
+            type:'POST',
+            validate:function(value){
+                if($.trim(value) == '')
+                {
+                    return 'This field is required';
+                }
+            }
+        })
+        
+        var dataTable = $('.interactive_table').DataTable({
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "iDisplayLengtg": 3,
+        });
+    
+        
+    
+    } );
+
+    // document.querySelector('.editor').addEventListener('keypress', function (e) {
+    //     var key = e.which || e.keyCode;
+    //     if (key === 13) { // 13 is enter
+    //         var text = document.getElementById(".editor").value;
+    //         if (text.includes("w")) {
+    //             alert("Omg, the string contains a W, try again");
+    //         } else {
+    //             document.getElementById(".editor").blur();
+    //         }
+    //     }
+    // });
+
+    
+    </script>
+
+{% endblock %}
