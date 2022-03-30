@@ -161,7 +161,8 @@ def update():
             return redirect('/#' + str(name))
         except:
             # print("Error now redirect")
-            return redirect('/#' + str(name))
+            # return redirect('/#' + str(name))
+            return redirect(request.url)
         
         return redirect('/')
     except Exception as e:
@@ -176,14 +177,20 @@ def delete(table_name):
         for attr in tables_dict[table_name]:
             field_name = "{}_{}".format(table_name,attr)
             field_value = args[field_name]
+            if (field_value == 'None' or field_value == None):
+                field_value = None
             # print(field_value)
             field_lst.append([attr, field_value])
         try:
             cur = mysql.connection.cursor()
             sql_query = 'delete from {} where '.format(table_name)
             for i in range(len(field_lst) - 1):
-                sql_query = sql_query + field_lst[i][0] + '=' + '"' + field_lst[i][1] + '"' + ' and '
-            sql_query = sql_query + field_lst[-1][0] + '=' + '"' + field_lst[-1][1] + '"'
+                if (field_lst[i][1]):
+                    sql_query = sql_query + field_lst[i][0] + '=' + '"' + field_lst[i][1] + '"' + ' and '
+            if (field_lst[-1][1]):
+                sql_query = sql_query + field_lst[-1][0] + '=' + '"' + field_lst[-1][1] + '";'
+            elif (len(sql_query) > 4):
+                sql_query = sql_query[:-5]
             cur.execute(sql_query)
             mysql.connection.commit()
             cur.close()
@@ -199,11 +206,22 @@ def add(table_name):
         for attr in tables_dict[table_name]:
             field_name = "{}_{}".format(table_name,attr)
             field_value = request.form[field_name]
+            if field_value == '' or str(field_value).upper() == 'NULL':
+                field_value = None
             # print(field_value)
             field_lst.append(field_value)
         try:
             cur = mysql.connection.cursor()
-            sql_query = 'insert into {} values{};'.format(table_name, tuple(field_lst))
+            sql_query = 'insert into {} values('.format(table_name)
+            for field in field_lst[:-1]:
+                if (field):
+                    sql_query = sql_query + '"' + str(field) + '",'
+                else:
+                    sql_query = sql_query + 'NULL,'
+            if (field_lst[-1]):
+                sql_query = sql_query + '"' + str(field_lst[-1]) + '");'
+            else:
+                sql_query = sql_query + 'NULL);'
             print(sql_query)
             cur.execute(sql_query)
             mysql.connection.commit()

@@ -50,8 +50,9 @@
                 <thead>
                     <tr>
                         {% for column_name in value %}
-                            <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; color: #368F8B">{{column_name}}</th>
+                            <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">{{column_name}}</th>
                         {% endfor %}
+                            <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">Delete</th>
                     </tr>
                 <thead>
 
@@ -67,7 +68,9 @@
                                     {% for index in range(value | length) %}
                                     {% if delete_end_point.update({'e':delete_end_point.e ~ table_name ~ "_" ~ value[index] ~ "=" ~ table_row[index] ~ "&"}) %} {% endif %}
                                     {% endfor %}
-                                    <td style = "padding: 5px;"><a class = "delete-entry" href="/delete/{{ table_name }}?{{ delete_end_point['e'] }}">X</a></td>
+                                    <!-- <td style = "padding: 5px;"><a class = "delete-entry" href="/delete/{{ table_name }}?{{ delete_end_point['e'] }}">X</a></td> -->
+                                    <td style="padding: 5px;"><a class = "delete-entry" href="/delete/{{ table_name }}?{{ delete_end_point['e'] }}">X</a></td>
+
                                 </tr>
                             {% endfor %}
                         {% endif %}
@@ -91,15 +94,16 @@
 
                     </div>
                     {% endfor %}
-                    <input type="submit" value="Add" style="color: black;">
+                    <input type="submit" value="Add" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
                 </form>
             </div>
         </div>
+        <!-- <br> -->
+        
     {% endfor %}
  
 </div>
-
-<div class = "footer">
+<div class = "footer" style="margin-top: 40vh;">
     <div id = "contact">
         &#169; Library Management System <br> 
         <p style="color: rgb(255, 255, 255); font-weight: 100; font-size: 84%;">CS432 - Database Management System</p>
