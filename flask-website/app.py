@@ -20,6 +20,7 @@ tables_dict = {
     'Student' : ['user_ID', 'programme'],
     'Faculty' : ['user_ID', 'dept_name', 'salary'],
     'Staff' : ['user_ID', 'job_profile'],
+    'Job_Salary' : ['job_profile', 'salary'],
     'Library_Staff' : ['user_ID', 'lib_dept'],
     'Other_Staff' : ['user_ID', 'working_hours'],
     'Library_Systems' : ['system_ID', 'system_specs'],
