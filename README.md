@@ -36,13 +36,13 @@ Click on the URL ```http://127.0.0.1:5000``` to visit the Library Management Sys
 Contents of this repository
 ---
 
-- The relations were added to the database from the MySQL client command line. The schema of our database can be found in the ```---.sql``` file.
-- A Python script was used to add dummy data to our tables. This script can be found in the  ```-----.py``` file.
+- The relations were added to the database from the MySQL client command line. The schema with dummy values of our database can be found in the ```dumpfile.sql``` file.
+- A Python script was used to add dummy data to our tables. This script can be found in the  ```insert_dummy_values.py``` file.
 - The Flask website code is found inside the ```flask-website``` folder.
 
 Snapshots of the functioning of the website
 ---
 
-The functioning of the INSERT, DELETE and UPDATE queries has been shown through the following snapshots of the website.
+The functioning of the INSERT, DELETE and UPDATE queries has been shown through the following snapshots of the website. We have also shown some cases where our web app gives errors like foreign key constraints are violated, duplicate primary keys, etc.
 
 ![alt text](https://github.com/MahikaJaguste/library-management-system//blob/new-parass/image.jpg?raw=true)
