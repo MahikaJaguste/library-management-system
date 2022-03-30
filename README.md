@@ -44,3 +44,5 @@ Snapshots of the functioning of the website
 ---
 
 The functioning of the INSERT, DELETE and UPDATE queries has been shown through the following snapshots of the website.
+
+![alt text](https://github.com/MahikaJaguste/library-management-system//blob/new-parass/image.jpg?raw=true)
