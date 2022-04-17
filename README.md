@@ -125,9 +125,8 @@ select * from publishers where publisher_name like 'David%'
 union  
 select * from publishers where street_name like '%Scott';
 ```
-![alt text](a8_pics/Q1_1.jpeg?raw=true)
-![alt text](a8_pics/Q1_2.jpeg?raw=true)
-![alt text](a8_pics/Q1_3.jpeg?raw=true)
+![alt text](a8_pics/1.png?raw=true)
+![alt text](a8_pics/2.png?raw=true)
 
 Query 1 \
 Rows: ``1000`` \
