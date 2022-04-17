@@ -121,9 +121,10 @@ Query 1 \
 
 Optimized query 1
 ```
-select * from publishers where publisher_name like '%David%' 
-union  
-select * from publishers where street_name like '%Scott&';
+select * from publishers where match(publisher_name) against ('*David*' in boolean mode)
+union 
+select * from publishers where match(street_name) against ('*Scott*' in boolean mode);
+
 ```
 ![alt text](a8_pics/q_1.png?raw=true)
 ![alt text](a8_pics/q_2.png?raw=true)
