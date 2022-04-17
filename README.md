@@ -225,7 +225,12 @@ However, when a NOT NULL description is added, count over description = 1 (i.e. 
 
 ## Task 6
 
-``System not compatible to cache queries``
+``System not compatible to cache queries``\
+Select statements like 
+- Location: Getting the different books locations of the library 
+- System_Allocation: Selecting all the alloted library systems
+- Genres: Seeing the different genres variety for books \
+and many more are some of the frequently run select statements. Caching them will reduce the the execution time significantly in the next run. If a query has been cached, the next time it is run, it will be fetched from the cache to give the output in lesser time.
 
 ## Task 7
 
@@ -304,6 +309,20 @@ For ``Task 2``, we have added a search functionality that takes a string and ret
 For ``Task 4``, we  added a feature where the user can enter a date, and he will be shown all the transactions where the issue date was the date that he entered.
 
 For ``Task 7``, we have implemented a join functionality where the user can  find the names of all users working in the library in a faster manner due to our optimized query using join. 
+
+**Contribution**
+
+G1: All the members had equal contribution (12.5% each out of 50%)
+- 19110080: Chetan Kishore
+- 19110093: Manas Malpuri
+- 19110106: Gaurav Viramgami
+- 19110136: Shrreya Singh
+
+G2: All the members had equal contribution (12.5% each out of 50%)
+- 19110090: Shubh Lavti
+- 19110092: Mahika Om Jaguste
+- 19110127: Nipun Mahajan
+- 19110128: Paras Gupta
 
 **References**
 
