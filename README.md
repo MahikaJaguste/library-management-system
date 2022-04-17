@@ -117,24 +117,24 @@ Tasks Assignment 8
 
 ## Task 1
 Query 1 \
-``select * from publishers where publisher_name like 'David%' or street_name like '%Scott';``
+``select * from publishers where publisher_name like '%David%' or street_name like '%Scott%';``
 
 Optimized query 1
 ```
-select * from publishers where publisher_name like 'David%' 
+select * from publishers where publisher_name like '%David%' 
 union  
-select * from publishers where street_name like '%Scott';
+select * from publishers where street_name like '%Scott&';
 ```
 ![alt text](a8_pics/1.png?raw=true)
 ![alt text](a8_pics/2.png?raw=true)
 
 Query 1 \
 Rows: ``1000`` \
-Duration: ``0.00130500 s``
+Duration: ``0.00254800 s``
 
 Optimized query 1 \
 Rows: ``2`` (reduced) \
-Duration: ``0.00037700 s`` (reduced)
+Duration: ``0.00053000 s`` (reduced)
 
 If we run queries using the comparison operator ‘or’ on different columns in the where clause, there are chances that the MySQL optimizer may incorrectly choose a full table scan to retrieve a record. However, having different indices to optimize two separate queries on the two different attributes and taking the union of those results can make the query run faster. The query 1 above can run far much slower compared to optimized query 1 which uses a union operator to merge the results of 2 separate fast queries that take advantage of the indexes.
 
