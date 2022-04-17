@@ -79,7 +79,266 @@
                 </tbody>
             </table>
             
+            {% if key == "Publishers" %}
+                <div class="publisher_query" style="">
 
+                    <div class = "input-form" style="margin-left: auto; margin-right: auto;">
+                        <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">Search</p></div>
+                        <hr style="margin: 0px;">      
+                        <form action="/#Publishers" method="POST" id = "input-fields">
+                            <div class = "table-row" >
+                                <label for="task" style="font-weight:460;">Task</label> &nbsp;&nbsp;
+                                <input type="text" name="task" id="task" style="font-weight:460;" placeholder="Task 1" value="1" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <div class = "table-row" >
+                                <label for="publisher_name" style="font-weight:460;">Publisher Name</label> &nbsp;&nbsp;
+                                <input type="text" name="publisher_name" id="publisher_name" style="font-weight:460;">
+                                <br>
+        
+                            </div>
+                            <div class = "table-row" >
+                                <label for="street_name" style="font-weight:460;">Street Name</label> &nbsp;&nbsp;
+                                <input type="text" name="street_name" id="street_name" style="font-weight:460;">
+                                <br>
+        
+                            </div>
+                            <input type="submit" value="Search" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
+                        </form>
+                    </div>
+                
+                
+                <table class = "task_table" style="text-align: center; margin-left:auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            {% for column_name in value %}
+                                <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">{{column_name}}</th>
+                            {% endfor %}                        </tr>
+                    <thead>
+
+                    <tbody>
+                        {% for table_name, table_content in task_data.items() %}
+                        {% if table_name == 1 %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                                
+                    </tbody>
+                </table>
+
+            </div>
+            {% endif %}
+
+            {% if key == "Users" %}
+                <div class="user_query" style="">
+
+                    <div class = "input-form" style="margin-left: auto; margin-right: auto;">
+                        <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">Search</p></div>
+                        <hr style="margin: 0px;">      
+                        <form action="/#Users" method="POST" id = "input-fields">
+                            <div class = "table-row" >
+                                <label for="task" style="font-weight:460;">Task</label> &nbsp;&nbsp;
+                                <input type="text" name="task" id="task" style="font-weight:460;" placeholder="Task 2" value="2" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <div class = "table-row" >
+                                <label for="name" style="font-weight:460;">Name</label> &nbsp;&nbsp;
+                                <input type="text" name="name" id="name" style="font-weight:460;">
+                                <br>
+        
+                            </div>
+                            <input type="submit" value="Search" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
+                        </form>
+                    </div>
+                
+                
+                <table class = "task_table" style="text-align: center; margin-left:auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            {% for column_name in value %}
+                                <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">{{column_name}}</th>
+                            {% endfor %}                        </tr>
+                    <thead>
+
+                    <tbody>
+                        {% for table_name, table_content in task_data.items() %}
+                        {% if table_name == 2 %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                                
+                    </tbody>
+                </table>
+
+            </div>
+            {% endif %}
+
+            {% if key == "Transaction" %}
+                <div class="transaction_query" style="">
+
+                    <div class = "input-form" style="margin-left: auto; margin-right: auto;">
+                        <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">Search</p></div>
+                        <hr style="margin: 0px;">      
+                        <form action="/#Transaction" method="POST" id = "input-fields">
+                            <div class = "table-row" >
+                                <label for="task" style="font-weight:460;">Task</label> &nbsp;&nbsp;
+                                <input type="text" name="task" id="task" style="font-weight:460;" placeholder="Task 4" value="4" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <div class = "table-row" >
+                                <label for="date" style="font-weight:460;">Date</label> &nbsp;&nbsp;
+                                <input type="text" name="date" id="date" style="font-weight:460;">
+                                <br>
+        
+                            </div>
+                            <input type="submit" value="Search" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
+                        </form>
+                    </div>
+                
+                
+                <table class = "task_table" style="text-align: center; margin-left:auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            {% for column_name in value %}
+                                <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">{{column_name}}</th>
+                            {% endfor %}                        </tr>
+                    <thead>
+
+                    <tbody>
+                        {% for table_name, table_content in task_data.items() %}
+                        {% if table_name == 4 %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                                
+                    </tbody>
+                </table>
+
+            </div>
+            {% endif %}
+
+            {% if key == "Penalties" %}
+                <div class="penalties_query" style="">
+
+                    <div class = "input-form" style="margin-left: auto; margin-right: auto;">
+                        <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">Search</p></div>
+                        <hr style="margin: 0px;">      
+                        <form action="/#Penalties" method="POST" id = "input-fields">
+                            <div class = "table-row" >
+                                <label for="task" style="font-weight:460;">Task</label> &nbsp;&nbsp;
+                                <input type="text" name="task" id="task" style="font-weight:460;" placeholder="Task 5" value="5" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <div class = "table-row" >
+                                <label for="table_name" style="font-weight:460;">Table Name</label> &nbsp;&nbsp;
+                                <input type="text" name="table_name" id="table_name" style="font-weight:460;" placeholder="{{key}}" value="{{key}}" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <input type="submit" value="Search" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
+                        </form>
+                    </div>
+                
+                
+                <table class = "task_table" style="text-align: center; margin-left:auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            
+                                <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">Count</th>
+                                               </tr>
+                    <thead>
+
+                    <tbody>
+                        {% for table_name, table_content in task_data.items() %}
+                        {% if table_name == 5 %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                                
+                    </tbody>
+                </table>
+
+            </div>
+            {% endif %}
+
+            {% if key == "Users" %}
+                <div class="users_query" style="">
+
+                    <div class = "input-form" style="margin-left: auto; margin-right: auto;">
+                        <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">Search</p></div>
+                        <hr style="margin: 0px;">      
+                        <form action="/#Users" method="POST" id = "input-fields">
+                            <div class = "table-row" >
+                                <label for="task" style="font-weight:460;">Task</label> &nbsp;&nbsp;
+                                <input type="text" name="task" id="task" style="font-weight:460;" placeholder="Task 7" value="7" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <div class = "table-row" >
+                                <label for="table_name" style="font-weight:460;">Table Name</label> &nbsp;&nbsp;
+                                <input type="text" name="table_name" id="table_name" style="font-weight:460;" placeholder="{{key}}" value="{{key}}" readonly="readonly">
+                                <br>
+        
+                            </div>
+                            <input type="submit" value="Search" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
+                        </form>
+                    </div>
+                
+                
+                <table class = "task_table" style="text-align: center; margin-left:auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            
+                                <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">Names of all users working in the library</th>
+                                               </tr>
+                    <thead>
+
+                    <tbody>
+                        {% for table_name, table_content in task_data.items() %}
+                        {% if table_name == 7 %}
+                            {% for table_row in table_content %}
+                                <tr>
+                                    {% for i in range(table_row|length) %}
+                                        <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                                
+                    </tbody>
+                </table>
+
+            </div>
+            {% endif %}
                     
             <br>
             <div class = "input-form" style="margin-left: auto; margin-right: auto;">
@@ -157,6 +416,17 @@
         
     
     } );
+
+    $(document).ready( function () {
+
+        var dataTable = $('.task_table').DataTable({
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "iDisplayLengtg": 3,
+    });
+
+
+
+        } );
 
     // document.querySelector('.editor').addEventListener('keypress', function (e) {
     //     var key = e.which || e.keyCode;
