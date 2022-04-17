@@ -15,8 +15,8 @@ app.config['MYSQL_DB'] = db['mysql_db']
 mysql = MySQL(app)
 
 tables_dict = {
-    'Users' : ['user_id', 'user_name'],
-    'Users_Phone' : ['user_id', 'phone_number'],
+    'Users' : ['user_ID', 'user_name'],
+    'Users_Phone' : ['user_ID', 'phone_number'],
     'Student' : ['user_ID', 'programme'],
     'Faculty' : ['user_ID', 'dept_name', 'salary'],
     'Staff' : ['user_ID', 'job_profile'],
@@ -45,6 +45,11 @@ tables_dict = {
     'Library_Staff_Working_Hours' : ['user_ID', 'start_time', 'end_time']
 }
 
+task_dict ={
+    'Publishers' : ['publisher_ID', 'publisher_name', 'street_num', 'street_name', 'city', 'state', 'zip_code', 'email'],
+
+}
+
 books = ['book1', 'book2']
 
 
@@ -60,51 +65,77 @@ def index():
             if resultValue > 0:
                 current_table_data = cur.fetchall()
             table_data[table_name] = list(current_table_data)
+        
+        task_data = {1:[], 2:[], 4:[], 5:{}, 7:[], -1:[]}
+        task_keys = []
 
-        return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data)
+        if request.method == 'POST':
+            
+            cur = mysql.connection.cursor()
+            task_num = request.form["task"]
+            if (task_num == "1"):
+                publisher_name = request.form["publisher_name"]
+                street_name = request.form["street_name"]
+                sql_query = "select * from publishers where publisher_name like '" + publisher_name + "%' union select * from publishers where street_name like '%" + street_name + "';"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[1] = list(current_table_data)
+            elif (task_num == "2"):
+                name = request.form["name"]
+                sql_query = "select * from users USE INDEX(user_name_ind) WHERE user_name LIKE '" + name + "%';"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[2] = list(current_table_data)
+            elif (task_num == "4"):
+                date = request.form["date"]
+                sql_query = "select * from transaction WHERE issue_date = '" + date + "';"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[4] = list(current_table_data)
+            elif (task_num == "5"):
+                table_name = request.form["table_name"]
+                field_name = request.form["field_name"]
+                sql_query = "select count(" + field_name + ") from " + table_name + ";"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[5][table_name] = list(current_table_data)
+            elif (task_num == "7"):
+                table_name = request.form["table_name"]
+                sql_query = "select u.user_name from users as u, library_staff as l where u.user_ID  = l.user_ID;"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[7] = list(current_table_data)
+            elif (task_num == "7 (Miscellaneous)"):
+                table1_name = request.form["table1_name"]
+                table2_name = request.form["table2_name"]
+                join_attribute = request.form["join_attribute"]
+                sql_query = "select * from " + table1_name + " as u join " + table2_name + " as l using(" + join_attribute +  ");"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[-1] = list(current_table_data)
+                for attr in tables_dict[table1_name]:
+                    task_keys.append(attr)
+                for attr in tables_dict[table2_name]:
+                    if (attr not in task_keys):
+                        task_keys.append(attr)
+        print(task_keys)
+        return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data, task_data = task_data, task_keys = task_keys)
     except Exception as e:
         return 'There was an issue fetching the entry: ' + str(e)
     # print(tables_dict.keys())
     return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys())
-
-# ------------------------------------------------------------
-# @app.route('/', methods=['POST', 'GET'])
-# def index():
-#     if request.method == 'POST':
-#         task_content = request.form['content']
-#         try:
-#             cur = mysql.connection.cursor()
-#             sql_query = "select * from todo"
-#             resultValue = cur.execute(sql_query)
-#             print(resultValue + 1)
-#             sql_query = 'insert into todo values({0}, "{1}", 0)'.format(resultValue + 1, task_content)
-#             print(sql_query)
-#             cur.execute(sql_query)
-#             mysql.connection.commit()
-#             cur.close()
-#             return redirect('/')
-#         except:
-#             return 'There was an issue adding the entry.'
-#     else:
-#         cur = mysql.connection.cursor()
-#         sql_query = "select * from todo"
-#         resultValue = cur.execute(sql_query)
-#         tasks = []
-#         if resultValue > 0:
-#             tasks = cur.fetchall()
-#         return render_template('index.html', tasks = tasks)
-
-# @app.route('/delete/<int:id>')
-# def delete(id):
-#     try:
-#             cur = mysql.connection.cursor()
-#             sql_query = "delete from todo where id = {0}".format(id)
-#             cur.execute(sql_query)
-#             mysql.connection.commit()
-#             cur.close()
-#             return redirect('/')
-#     except:
-#         return 'There was an issue deleting the entry.'  
 
 @app.route('/update', methods=['GET', 'POST'])
 def update():
@@ -133,24 +164,6 @@ def update():
                 col += i       
 
     value = request.form['value']
-    # print(value)
-    # print(name)
-    # print(id)
-    # print(col)
-    # print(tables_dict[name][int(col)])
-    # print(name)
-    # try:
-    #     cur = mysql.connection.cursor()
-    #     sql_query = "select * from {1} where id = {0}".format(id, name)
-    #     cur.execute(sql_query)
-    #     task = cur.fetchone()
-    # except:
-    #     return 'There was an issue fetching the entry'
-
-    # if request.method == 'POST':
-        # task_content = request.form['update_content']
-        # print("hello")
-        # print(value)
     try:
         cur = mysql.connection.cursor()
         sql_query = 'update {2} set {3} = "{1}" where {4} = {0};'.format(id, value, name, tables_dict[name][int(col)], tables_dict[name][0])
