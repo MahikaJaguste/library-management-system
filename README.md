@@ -230,7 +230,7 @@ Select statements like
 - Location: Getting the different books locations of the library 
 - System_Allocation: Selecting all the alloted library systems
 - Genres: Seeing the different genres variety for books \
-and many more are some of the frequently run select statements. Caching them will reduce the the execution time significantly in the next run. If a query has been cached, the next time it is run, it will be fetched from the cache to give the output in lesser time. Also, the above three tables will be updated less frequently. So, it is better to use cached data for select queries on them as cached data gets removed if we run update query on that particular table.
+and many more are some of the frequently run select statements. Caching them will reduce the the execution time significantly in the next run. If a query has been cached, the next time it is run, it will be fetched from the cache to give the output in lesser time. Also, the above three tables will be updated less frequently. So, it is better to use cached data for select queries on them as cached data gets removed if we run update/insert query on that particular table.
 
 ## Task 7
 
