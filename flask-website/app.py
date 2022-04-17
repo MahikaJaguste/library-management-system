@@ -128,7 +128,7 @@ def index():
                 for attr in tables_dict[table1_name]:
                     task_keys.append(attr)
                 for attr in tables_dict[table2_name]:
-                    if (attr not in task_keys):
+                    if (attr != join_attribute):
                         task_keys.append(attr)
         print(task_keys)
         return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data, task_data = task_data, task_keys = task_keys)
