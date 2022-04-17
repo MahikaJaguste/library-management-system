@@ -470,7 +470,9 @@ CREATE TABLE `publishers` (
   `zip_code` bigint DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`publisher_ID`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  FULLTEXT KEY `pub_name_index` (`publisher_name`),
+  FULLTEXT KEY `street_name_index` (`street_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -757,4 +759,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-17 22:24:51
+-- Dump completed on 2022-04-18  0:17:13

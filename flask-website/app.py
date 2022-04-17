@@ -76,7 +76,7 @@ def index():
             if (task_num == "1"):
                 publisher_name = request.form["publisher_name"]
                 street_name = request.form["street_name"]
-                sql_query = "select * from publishers where publisher_name like '" + publisher_name + "%' union select * from publishers where street_name like '%" + street_name + "';"
+                sql_query = "select * from publishers where match(publisher_name) against ('*" + publisher_name + "*' in boolean mode) union select * from publishers where match(street_name) against ('*" + street_name + "*' in boolean mode);"
                 resultValue = cur.execute(sql_query)
                 current_table_data = []
                 if resultValue > 0:
