@@ -309,6 +309,8 @@ For ``Task 4``, we  added a feature where the user can enter a date, and he will
 
 For ``Task 7``, we have implemented a join functionality where the user can  find the names of all users working in the library in a faster manner due to our optimized query using join. 
 
+For ``Task 7``, We have also added a new tab ``Miscellaneous Joins`` on the webpage using which we can see the output of joins of two compatible tables given the common attribute.
+
 **Contribution**
 
 G1: All the members had equal contribution (12.5% each out of 50%)
