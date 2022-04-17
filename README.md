@@ -146,6 +146,8 @@ Query: ```SELECT * FROM users WHERE user_name LIKE “m%”;``` \
 
 Number of rows hit: ``2000``
 
+Execution time: ``0.00189500 sec``
+
 In the query mentioned above, we are querying a name that starts with the English alphabet ‘m’. The query is expected to return the rows from the ``users`` table having the value of attribute user_name as a string starting with ‘m’. Clearly, this can be modeled as a prefix selection problem. In our query, the prefix required is ‘m’. Therefore, we can create a prefix index on the attribute user_name using:
 
 ```CREATE INDEX user_name_ind ON users(user_name(1));```
@@ -155,9 +157,14 @@ Now, we run the query again for the same pattern. To force the use of index, we 
 ```SELECT * FROM users USE INDEX(user_name_ind) WHERE user_name LIKE “m%”;```
 
 Number of rows hit: ``221``
+
+Execution time: ``0.00142900 sec``
+
+Results:
 ![alt text](a8_pics/image3.png?raw=true)
 ![alt text](a8_pics/image20.png?raw=true)
 ![alt text](a8_pics/image10.png?raw=true)
+![alt text](a8_pics/image23.png?raw=true)
 
 ## Task 3
 
