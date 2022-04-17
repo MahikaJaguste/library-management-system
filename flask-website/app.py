@@ -66,7 +66,7 @@ def index():
                 current_table_data = cur.fetchall()
             table_data[table_name] = list(current_table_data)
         
-        task_data = {1:[], 2:[], 4:[], 5:[], 7:[]}
+        task_data = {1:[], 2:[], 4:[], 5:{}, 7:[]}
 
         if request.method == 'POST':
             
@@ -83,7 +83,7 @@ def index():
                 task_data[1] = list(current_table_data)
             elif (task_num == 2):
                 name = request.form["name"]
-                sql_query = "select * from users WHERE user_name LIKE '" + name + "%';"
+                sql_query = "select * from users USE INDEX(user_name_ind) WHERE user_name LIKE '" + name + "%';"
                 resultValue = cur.execute(sql_query)
                 current_table_data = []
                 if resultValue > 0:
@@ -99,12 +99,13 @@ def index():
                 task_data[4] = list(current_table_data)
             elif (task_num == 5):
                 table_name = request.form["table_name"]
-                sql_query = "select count(*) from " + table_name + ";"
+                field_name = request.form["field_name"]
+                sql_query = "select count(" + field_name + ") from " + table_name + ";"
                 resultValue = cur.execute(sql_query)
                 current_table_data = []
                 if resultValue > 0:
                     current_table_data = cur.fetchall()
-                task_data[5] = list(current_table_data)
+                task_data[5][table_name] = list(current_table_data)
             elif (task_num == 7):
                 table_name = request.form["table_name"]
                 sql_query = "select u.user_name from users as u, library_staff as l where u.user_ID  = l.user_ID;"

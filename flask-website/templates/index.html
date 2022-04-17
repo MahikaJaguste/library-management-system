@@ -291,13 +291,12 @@
             </div>
             {% endif %}
 
-            {% if key == "Penalties" %}
                 <div class="penalties_query" style="">
 
                     <div class = "input-form" style="margin-left: auto; margin-right: auto;">
                         <div style="text-align: center; font-size: 1em; padding-top: 0.5em;"><p style="color: #392759">TASK 5</p></div>
                         <hr style="margin: 0px;">      
-                        <form action="/#Penalties" method="POST" id = "input-fields">
+                        <form action="/#{{key}}" method="POST" id = "input-fields">
                             <div class = "table-row" >
                                 <label for="task" style="font-weight:460;">Task</label> &nbsp;&nbsp;
                                 <input type="text" name="task" id="task" style="font-weight:460;" placeholder="Task 5" value="5" readonly="readonly">
@@ -310,6 +309,12 @@
                                 <br>
         
                             </div>
+                            <div class = "table-row" >
+                                <label for="field_name" style="font-weight:460;">Attribute Name (Specify Single Attribute)</label> &nbsp;&nbsp;
+                                <input type="text" name="field_name" id="field_name" style="font-weight:460;">
+                                <br>
+        
+                            </div>
                             <input type="submit" value="Search" style="color: black; border-radius: 10px; font-size: 1.2em; padding-left: 10px; padding-right: 10px ;margin-top: 2vh; background-color: #F8F7FF;">
                         </form>
                     </div>
@@ -319,14 +324,14 @@
                     <thead>
                         <tr>
                             
-                                <th style="text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">Count</th>
+                                <th style="width:30vw;text-align: center; font-family: Roboto; font-size: 1.2em; padding: 10px; padding-right: 40px;color: #368F8B">Count of NONNULL instances of specified attribute</th>
                                                </tr>
                     <thead>
 
                     <tbody>
                         {% for table_name, table_content in task_data.items() %}
                         {% if table_name == 5 %}
-                            {% for table_row in table_content %}
+                            {% for table_row in table_content[key] %}
                                 <tr>
                                     {% for i in range(table_row|length) %}
                                         <td style="padding: 5px;" data-name="update" class="update" data-type="text" data-pk="{{table_name}},{{table_row[0]}},{{i}}">{{table_row[i]}}</td>
@@ -340,7 +345,6 @@
                 </table>
 
             </div>
-            {% endif %}
             
             <hr style="border-width: 5px;">
 
