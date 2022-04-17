@@ -313,7 +313,7 @@ For ``Task 7``, we have implemented a join functionality where the user can  fin
 
 G1: All the members had equal contribution (12.5% each out of 50%)
 - 19110080: Chetan Kishore
-- 19110093: Manas Malpuri
+- 19110093: Manas Mulpuri
 - 19110106: Gaurav Viramgami
 - 19110136: Shrreya Singh
 
