@@ -40,7 +40,7 @@ Click on the URL ```http://127.0.0.1:5000``` to visit the Library Management Sys
 Contents of this repository
 ---
 
-- The relations were added to the database from the MySQL client command line. The schema with dummy values of our database can be found in the ```dumpfile.sql``` file.
+- The relations were added to the database from the MySQL client command line. The schema with dummy values of our database can be found in the ```final_values_final.sql``` file.
 - A Python script was used to add dummy data to our tables. This script can be found in the  ```insert_dummy_values.py``` file.
 - The Flask website code is found inside the ```flask-website``` folder.
 
