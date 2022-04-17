@@ -47,6 +47,30 @@ Contents of this repository
 Tasks Assignment 8
 ---
 
+## Task 1
+Query 1 \
+``select * from publishers where publisher_name like 'Denise%' or street_name like '%Scott';``
+
+Optimized query 1
+```
+select * from publishers where publisher_name like 'Denise%' 
+union all 
+select * from publishers where street_name like '%Scott';
+```
+![alt text](a8_pics/Q1_1.jpeg?raw=true)
+![alt text](a8_pics/Q1_2.jpeg?raw=true)
+![alt text](a8_pics/Q1_3.jpeg?raw=true)
+
+Query 1 \
+Rows: ``1000`` \
+Duration: ``0.08033325 s``
+
+Optimized query 1 \
+Rows: ``2`` (reduced) \
+Duration: ``0.00825325 s`` (reduced)
+
+If we run queries using the comparison operator ‘or’ on different columns in the where clause, there are chances that the MySQL optimizer may incorrectly choose a full table scan to retrieve a record. However, having different indices to optimize two separate queries on the two different attributes and taking the union of those results can make the query run faster. The query 1 above can run far much slower compared to optimized query 1 which uses a union operator to merge the results of 2 separate fast queries that take advantage of the indexes.
+
 ## Task 2
 
 Query: ```SELECT * FROM users WHERE user_name LIKE “m%”;``` \
@@ -70,8 +94,8 @@ Number of rows hit: ``221``
 ## Task 3
 
 Table: **Publishers** \
-Column: \
-zip_code: Change to BIGINT \
+Column: 
+- **zip_code**: Change to BIGINT \
 The longest postal code used around the world is 10 digits long. So, space required to store zip_code will be 8 bytes. INT type comparisons are faster than VARCHAR as the former takes up less space than varchars. If we store zip_code as varchar(10) space required will be 11 bytes per entry.
 
 Results: \
@@ -79,20 +103,20 @@ Results: \
 ![alt text](a8_pics/image4.png?raw=true)
 ![alt text](a8_pics/image5.png?raw=true)
 
-Similarly, we can only change the following column types: \
+Similarly, we can only change the following column types: 
 
 Table: **Publishers_Phone** \
-Column: \
-phone_number: Change to BIGINT \
+Column: 
+- **phone_number**: Change to BIGINT \
 Phone numbers are 10 digits long. So, space required to store phone_numbers will be 8 bytes using BIGINT. INT type comparisons are faster than VARCHAR as the former takes up less space than varchars. If we store phone_number as varchar(10) space required will be 11 bytes per entry.
 
 Table: **Faculty** \
-Column: \
-salary: No salary will be greater than 1,67,77,215. So we can keep the salary field as MEDIUMINT.
+Column: 
+- **salary**: No salary will be greater than 1,67,77,215. So we can keep the salary field as MEDIUMINT.
 
 Table: **Book_Location** \
-Column: \
-shelf_ID: Change to TINYINT \
+Column: 
+- **shelf_ID**: Change to TINYINT \
 At most there will be 100 shelves in the library.
 
 ## Task 4
@@ -100,7 +124,7 @@ At most there will be 100 shelves in the library.
 Query 1: ``SELECT * FROM transaction WHERE issue_date = "2022-09-07"``
 
 This task was implemented on the Transaction table. Initially, the issue_date column had the data type as ``VARCHAR(20)``. \
-The time taken by the query as given by the profiling functionality in MySQL is: ``0.00618500`` \
+The time taken by the query as given by the profiling functionality in MySQL is: ``0.00618500`` 
 
 ![alt text](a8_pics/image18.png?raw=true)
 ![alt text](a8_pics/image17.png?raw=true)
@@ -193,6 +217,16 @@ natural join users
 We can observe that the original nested query takes ``0.00087000 sec``., however the optimized query which is written using join operations and order by, limit clauses takes ``0.00085250 sec``. which is less than the execution time for original nested query. 
 
 The reason is clear from the number of scan rows shown in the above image. The max clause in the nested query scans all the 16 rows of job_salary, however the order by and limit clause effectively scans 1 row from the derived table which makes the query faster.
+
+## Additional features in the website
+
+For ``Task 1``, we have added a search functionality that takes substrings of the publisher name and the street name and returns results about all the publishers whose attributes contain those substrings.
+
+For ``Task 2``, we have added a search functionality that takes a string and returns the details of all users whose user_name starts with the input string (i.e. searching from the prefix).
+
+For ``Task 4``, we  added a feature where the user can enter a date, and he will be shown all the transactions where the issue date was the date that he entered.
+
+For ``Task 7``, we have implemented a join functionality where the user can  find the names of all users working in the library in a faster manner due to our optimized query using join. 
 
 **References**
 
