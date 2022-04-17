@@ -15,8 +15,8 @@ app.config['MYSQL_DB'] = db['mysql_db']
 mysql = MySQL(app)
 
 tables_dict = {
-    'Users' : ['user_id', 'user_name'],
-    'Users_Phone' : ['user_id', 'phone_number'],
+    'Users' : ['user_ID', 'user_name'],
+    'Users_Phone' : ['user_ID', 'phone_number'],
     'Student' : ['user_ID', 'programme'],
     'Faculty' : ['user_ID', 'dept_name', 'salary'],
     'Staff' : ['user_ID', 'job_profile'],
@@ -66,13 +66,14 @@ def index():
                 current_table_data = cur.fetchall()
             table_data[table_name] = list(current_table_data)
         
-        task_data = {1:[], 2:[], 4:[], 5:{}, 7:[]}
+        task_data = {1:[], 2:[], 4:[], 5:{}, 7:[], -1:[]}
+        task_keys = []
 
         if request.method == 'POST':
             
             cur = mysql.connection.cursor()
-            task_num = int(request.form["task"])
-            if (task_num == 1):
+            task_num = request.form["task"]
+            if (task_num == "1"):
                 publisher_name = request.form["publisher_name"]
                 street_name = request.form["street_name"]
                 sql_query = "select * from publishers where publisher_name like '" + publisher_name + "%' union select * from publishers where street_name like '%" + street_name + "';"
@@ -81,7 +82,7 @@ def index():
                 if resultValue > 0:
                     current_table_data = cur.fetchall()
                 task_data[1] = list(current_table_data)
-            elif (task_num == 2):
+            elif (task_num == "2"):
                 name = request.form["name"]
                 sql_query = "select * from users USE INDEX(user_name_ind) WHERE user_name LIKE '" + name + "%';"
                 resultValue = cur.execute(sql_query)
@@ -89,7 +90,7 @@ def index():
                 if resultValue > 0:
                     current_table_data = cur.fetchall()
                 task_data[2] = list(current_table_data)
-            elif (task_num == 4):
+            elif (task_num == "4"):
                 date = request.form["date"]
                 sql_query = "select * from transaction WHERE issue_date = '" + date + "';"
                 resultValue = cur.execute(sql_query)
@@ -97,7 +98,7 @@ def index():
                 if resultValue > 0:
                     current_table_data = cur.fetchall()
                 task_data[4] = list(current_table_data)
-            elif (task_num == 5):
+            elif (task_num == "5"):
                 table_name = request.form["table_name"]
                 field_name = request.form["field_name"]
                 sql_query = "select count(" + field_name + ") from " + table_name + ";"
@@ -106,7 +107,7 @@ def index():
                 if resultValue > 0:
                     current_table_data = cur.fetchall()
                 task_data[5][table_name] = list(current_table_data)
-            elif (task_num == 7):
+            elif (task_num == "7"):
                 table_name = request.form["table_name"]
                 sql_query = "select u.user_name from users as u, library_staff as l where u.user_ID  = l.user_ID;"
                 resultValue = cur.execute(sql_query)
@@ -114,8 +115,23 @@ def index():
                 if resultValue > 0:
                     current_table_data = cur.fetchall()
                 task_data[7] = list(current_table_data)
-
-        return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data, task_data = task_data)
+            elif (task_num == "7 (Miscellaneous)"):
+                table1_name = request.form["table1_name"]
+                table2_name = request.form["table2_name"]
+                join_attribute = request.form["join_attribute"]
+                sql_query = "select * from " + table1_name + " as u join " + table2_name + " as l using(" + join_attribute +  ");"
+                resultValue = cur.execute(sql_query)
+                current_table_data = []
+                if resultValue > 0:
+                    current_table_data = cur.fetchall()
+                task_data[-1] = list(current_table_data)
+                for attr in tables_dict[table1_name]:
+                    task_keys.append(attr)
+                for attr in tables_dict[table2_name]:
+                    if (attr not in task_keys):
+                        task_keys.append(attr)
+        print(task_keys)
+        return render_template('index.html', tables_dict = tables_dict, keys=tables_dict.keys(), table_data = table_data, task_data = task_data, task_keys = task_keys)
     except Exception as e:
         return 'There was an issue fetching the entry: ' + str(e)
     # print(tables_dict.keys())
