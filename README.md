@@ -201,6 +201,8 @@ Query 1: ``SELECT * FROM transaction WHERE issue_date = "2022-09-07"``
 This task was implemented on the Transaction table. Initially, the issue_date column had the data type as ``VARCHAR(20)``. \
 The time taken by the query as given by the profiling functionality in MySQL is: ``0.00618500`` 
 
+The decision to make date from varchar to date type results in decrease of execution time as the date type is inherently more structured. When searching for the date, instead of searching for every character and pattern in varchar, a date can be divided by hyphens over day, month and year. The search values over these three divisions help in faster retrieval of data.
+
 ![alt text](a8_pics/image18.png?raw=true)
 ![alt text](a8_pics/image17.png?raw=true)
 
